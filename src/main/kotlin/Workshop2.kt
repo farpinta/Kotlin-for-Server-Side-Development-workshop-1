@@ -13,9 +13,20 @@ fun main() {
     // สินค้า name = "Jeans", price = 1200.0, category = "Apparel"
     // สินค้า name = "Headphones", price = 1800.0, category = "Electronics" // ตรงตามเงื่อนไข
 //🚨    val products = ?
+    val products = listOf(
+        Product("Laptop", 35000.0, "Electronics"),
+        Product("Smartphone", 25000.0, "Electronics"),
+        Product("T-shirt", 450.0, "Apparel"),
+        Product("Monitor", 7500.0, "Electronics"),
+        Product("Keyboard", 499.0, "Electronics"),
+        Product("Jeans", 1200.0, "Apparel"),
+        Product("Headphones", 1800.0, "Electronics")
+    )
 
     println("รายการสินค้าทั้งหมด:")
-//🚨    products.forEach { println(it) }
+
+    products.forEach { println(it) }
+
     println("--------------------------------------------------")
 
     // --- โจทย์: จงหาผลรวมราคาสินค้าทั้งหมดในหมวด 'Electronics' ที่มีราคามากกว่า 500 บาท ---
@@ -26,18 +37,30 @@ fun main() {
     // ดึงเฉพาะราคาออกมาเป็น List<Double>
     // หาผลรวมของราคา
 //🚨    val totalElecPriceOver500 = ?
+    val totalElecPriceOver500 = products
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500 }
+        .map { it.price }
+        .sum()
 
     println("วิธีที่ 1: ใช้ Chaining กับ List")
-//🚨    println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500 บาท")
+
+    println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500 บาท")
     println("--------------------------------------------------")
 
 
     // 4. (ขั้นสูง) วิธีที่ 2: การใช้ .asSequence() เพื่อเพิ่มประสิทธิภาพ
     // แปลง List เป็น Sequence ก่อนเริ่มประมวลผล
 //🚨    val totalElecPriceOver500Sequence = ?
+    val totalElecPriceOver500Sequence = products
+        .asSequence()
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500 }
+        .map { it.price }
+        .sum()
 
     println("วิธีที่ 2: ใช้ .asSequence() (ขั้นสูง)")
-//🚨    println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
+    println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
     println("--------------------------------------------------")
 
 
