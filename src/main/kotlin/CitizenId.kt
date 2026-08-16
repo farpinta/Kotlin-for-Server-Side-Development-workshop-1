@@ -1,3 +1,4 @@
+package org.example
 
 fun validateCitizenId(id: String): Boolean {
     // เงื่อนไข: ความยาวต้องเท่ากับ 13 พอดี (ครอบคลุมกรณีว่างเปล่าด้วย)
