@@ -3,6 +3,23 @@ package org.example
 // 1. กำหนด data class สำหรับเก็บข้อมูลสินค้า
 data class Product(val name: String, val price: Double, val category: String)
 
+// ฟังก์ชันคำนวณผลรวมราคาสินค้า Electronics ที่ราคามากกว่า 500 บาท
+fun calculateTotalElectronicsPriceOver500(products: List<Product>): Double {
+    return products
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500 }
+        .map { it.price }
+        .sum()
+}
+
+// ฟังก์ชันนับจำนวนสินค้าหมวด Electronics ที่ราคามากกว่า 500 บาท
+fun countElectronicsProductsOver500(products: List<Product>): Int {
+    return products
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500 }
+        .count()
+}
+
 fun main() {
     // 2. สร้างรายการสินค้าตัวอย่าง (List<Product>)
     // สินค้า name = "Laptop", price = 35000.0, category = "Electronics"
@@ -24,9 +41,7 @@ fun main() {
     )
 
     println("รายการสินค้าทั้งหมด:")
-
     products.forEach { println(it) }
-
     println("--------------------------------------------------")
 
     // --- โจทย์: จงหาผลรวมราคาสินค้าทั้งหมดในหมวด 'Electronics' ที่มีราคามากกว่า 500 บาท ---
@@ -37,11 +52,7 @@ fun main() {
     // ดึงเฉพาะราคาออกมาเป็น List<Double>
     // หาผลรวมของราคา
 //🚨    val totalElecPriceOver500 = ?
-    val totalElecPriceOver500 = products
-        .filter { it.category == "Electronics" }
-        .filter { it.price > 500 }
-        .map { it.price }
-        .sum()
+    val totalElecPriceOver500 = calculateTotalElectronicsPriceOver500(products)
 
     println("วิธีที่ 1: ใช้ Chaining กับ List")
 
@@ -50,8 +61,6 @@ fun main() {
 
 
     // 4. (ขั้นสูง) วิธีที่ 2: การใช้ .asSequence() เพื่อเพิ่มประสิทธิภาพ
-    // แปลง List เป็น Sequence ก่อนเริ่มประมวลผล
-//🚨    val totalElecPriceOver500Sequence = ?
     val totalElecPriceOver500Sequence = products
         .asSequence()
         .filter { it.category == "Electronics" }
